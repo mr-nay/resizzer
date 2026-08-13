@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thickness Finger Slot Resizer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid py-4">
+  <div class="container-xl">
+    <div class="mb-4">
+      <h1 class="fw-bold mb-1">Thickness Resizer</h1>
+      <p class="text-secondary mb-0">SVG / DXF finger-slot thickness editor</p>
+    </div>
+
+    <div id="alertBox" class="alert d-none" role="alert"></div>
+
+    <div class="card shadow-sm border-0 mb-3">
+      <div class="card-body">
+        <label for="fileInput" class="form-label fw-semibold">Upload SVG or DXF</label>
+        <input id="fileInput" class="form-control" type="file" accept=".svg,.dxf,image/svg+xml,application/dxf">
+        <div class="form-text">File diproses di browser. File asli tidak dikirim ke server.</div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-body">
+            <h5 class="fw-bold">File Information</h5>
+            <div class="info-row"><span>File</span><strong id="fileName">-</strong></div>
+            <div class="info-row"><span>Format</span><strong id="fileFormat">-</strong></div>
+            <div class="info-row"><span>Width</span><strong id="widthInfo">-</strong></div>
+            <div class="info-row"><span>Height</span><strong id="heightInfo">-</strong></div>
+            <div class="info-row"><span>Detected thickness</span><strong id="detectedInfo">Not detected</strong></div>
+
+            <hr>
+
+            <label class="form-label fw-semibold" for="newThickness">New Thickness (mm)</label>
+            <input id="newThickness" type="number" class="form-control form-control-lg" min="0.1" step="0.01" value="3">
+            <div class="form-text">
+              Engine mempertahankan bounding-box luar dan mengubah pasangan garis slot/tab yang terdeteksi.
+            </div>
+
+            <div class="d-grid gap-2 mt-3">
+              <button id="applyBtn" class="btn btn-primary btn-lg" disabled>Apply Thickness</button>
+              <button id="resetBtn" class="btn btn-outline-secondary" disabled>Reset</button>
+              <div class="row g-2">
+                <div class="col-6"><button id="downloadSvg" class="btn btn-outline-dark w-100" disabled>Download SVG</button></div>
+                <div class="col-6"><button id="downloadDxf" class="btn btn-outline-dark w-100" disabled>Download DXF</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="fw-bold mb-0">Preview</h5>
+              <span id="status" class="badge text-bg-secondary">Waiting for file</span>
+            </div>
+            <div id="preview" class="preview">
+              <div class="text-secondary">Upload an SVG or DXF file.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm border-0 mt-3">
+      <div class="card-body small text-secondary">
+        <strong>Catatan:</strong> thickness finger-slot tidak selalu tersimpan sebagai metadata di SVG/DXF.
+        Karena itu aplikasi memakai analisis geometri. Hasil paling akurat untuk file finger-joint yang terdiri
+        dari garis/polyline dengan pola slot yang jelas. File dengan spline, engraving kompleks, atau geometri
+        yang sangat tidak beraturan mungkin memerlukan penyesuaian manual.
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
